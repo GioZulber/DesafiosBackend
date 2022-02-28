@@ -1,10 +1,11 @@
 //Este desafio lo hicimos en clase
 
-const mostrarLetas = (palabra, cb) => {
+const mostrarLetras = (palabra, cb) => {
   let i = 0;
   const timer = setInterval(() => {
     if (i < palabra.length) {
       console.log(palabra[i]);
+      // or palabra.at(i)
       i++;
     } else {
       clearInterval(timer);
@@ -12,16 +13,16 @@ const mostrarLetas = (palabra, cb) => {
     }
   }, 1000);
 };
-
-const funcionFinalizada = () => console.log('finalizado al proceso');
+const funcionFinalizada = () => console.log('Finalizado el proceso');
 
 setTimeout(() => {
-  mostrarLetas('hola', funcionFinalizada);
+  mostrarLetras('hola', funcionFinalizada);
 }, 0);
 
 setTimeout(() => {
-  mostrarLetas('hola', funcionFinalizada);
+  mostrarLetras('hola', funcionFinalizada);
 }, 250);
+
 setTimeout(() => {
-  mostrarLetas('hola', funcionFinalizada);
+  mostrarLetras('hola', funcionFinalizada);
 }, 500);
