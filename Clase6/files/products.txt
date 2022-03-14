@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Bicicleta",
+		"price": 216,
+		"thumbnail": "https://yuhmak.vteximg.com.br/arquivos/ids/156469/E0000011069-BICICLETA-ENRIQUE-R29-VERTIGO-21V-LL-D-P-035.png?v=637354425148900000",
+		"id": 1
+	},
+	{
+		"title": "Monopatin",
+		"price": 539,
+		"thumbnail": "http://d3ugyf2ht6aenh.cloudfront.net/stores/001/245/791/products/718e032a-238d-42be-9830-d470019ae09a-78dd77bf4cb874088c16232991142539-640-0.jpg",
+		"id": 2
+	},
+	{
+		"title": "Pelota",
+		"price": 623,
+		"thumbnail": "https://assets.adidas.com/images/w_600,f_auto,q_auto/55ea2a5f168f4c609d51a9f1011a500d_9366/Pelota_Oficial_Partidos_Argentina_19_(UNISEX)_Blanco_DY2520_01_standard.jpg",
+		"id": 3
+	}
+]
