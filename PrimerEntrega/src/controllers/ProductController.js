@@ -41,10 +41,9 @@ const setProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.pid;
   const product = req.body;
-  await productManager.update(product, id);
-  console.log(await productManager.update(product, id));
+  const update = await productManager.update(product, id);
   res.status(200).send({
     message: 'Product updated',
     product: product,

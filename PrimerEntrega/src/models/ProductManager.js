@@ -50,7 +50,8 @@ class ProductsManager {
         let data = JSON.parse(
           await fs.promises.readFile(this.products, 'utf-8')
         );
-        if (id) {
+
+        if (id !== undefined) {
           let prod = data.filter(
             (product) => parseInt(product.id) === parseInt(id)
           );
@@ -64,19 +65,24 @@ class ProductsManager {
     }
   };
 
-  update = async (product) => {
+  update = async (product, pid) => {
     try {
       if (fs.existsSync(this.products)) {
         let data = JSON.parse(
           await fs.promises.readFile(this.products, 'utf-8')
         );
-        let index = data.findIndex((product) => product.id === product.id);
-        data[index] = {
-          ...product,
-          code: data[index].code,
-          timestap: data[index].timestap,
-          id: data[index].id,
-        };
+        if (pid) {
+          let prod = data.filter(
+            (product) => parseInt(product.id) === parseInt(pid)
+          );
+          prod[0].title = product.title;
+          prod[0].description = product.description;
+          prod[0].price = product.price;
+          prod[0].stock = product.stock;
+          prod[0].timestap = new Date();
+        } else {
+          return { message: 'Bad request' };
+        }
 
         await fs.promises.writeFile(
           this.products,
@@ -94,8 +100,14 @@ class ProductsManager {
         let data = JSON.parse(
           await fs.promises.readFile(this.products, 'utf-8')
         );
-        data = data.filter((product) => parseInt(product.id) !== parseInt(id));
-        console.log(data);
+        if (id) {
+          data = data.filter(
+            (product) => parseInt(product.id) !== parseInt(id)
+          );
+        } else {
+          return { message: 'Bad request' };
+        }
+
         await fs.promises.writeFile(
           this.products,
           JSON.stringify(data, null, '\t')
