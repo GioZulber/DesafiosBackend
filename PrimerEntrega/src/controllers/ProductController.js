@@ -7,29 +7,22 @@ const getProducts = async (req, res) => {
   const id = req.params.pid;
   const products = await productManager.get(id);
   console.log(products);
-  if (id) {
-    res.status(200).send({
-      message: 'Product found',
-      product: products,
-    });
-  } else {
+  if (products) {
     res.status(200).send({
       message: 'Products found',
       products: products,
+    });
+  } else {
+    res.status(400).send({
+      message: 'Product not found',
     });
   }
 };
 
 const setProduct = async (req, res) => {
   const product = req.body;
-  let { title, description, code, price, stock } = product;
-  if (
-    title === '' ||
-    description === '' ||
-    price === 0 ||
-    stock === '' ||
-    code === ''
-  ) {
+  let { title, description, price, stock } = product;
+  if (title === '' || description === '' || price === 0 || stock === '') {
     res.status(400).send({ message: 'Bad request' });
   } else {
     await productManager.set(product);

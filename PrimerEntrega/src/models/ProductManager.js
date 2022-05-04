@@ -11,7 +11,6 @@ class ProductsManager {
         let data = JSON.parse(
           await fs.promises.readFile(this.products, 'utf-8')
         );
-
         product.code = Math.floor(Math.random() * 999 + 1);
         product.timestap = new Date();
         if (data.length === 0) {
@@ -51,7 +50,9 @@ class ProductsManager {
           await fs.promises.readFile(this.products, 'utf-8')
         );
 
-        if (id !== undefined) {
+        if (id < 1 || id > data.length) {
+          return { message: 'Product not found' };
+        } else if (id >= 1 || id <= data.length) {
           let prod = data.filter(
             (product) => parseInt(product.id) === parseInt(id)
           );

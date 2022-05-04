@@ -1,0 +1,31 @@
+<div class='card'>
+  <div class='table'>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th scope='col'>Nombre</th>
+          <th scope='col'>Precio</th>
+          <th scope='col'>Foto URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if products}}
+          {{#each products}}
+            <tr>
+              <td>{{name}}</td>
+              <td>{{price}}</td>
+              <td><img src={{photo}} alt='' class='imagen' /></td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td colspan='3' style='text-align: center;'>No hay productos</td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+    <button class='button'>
+      <a href='/'>Volver</a>
+    </button>
+  </div>
+</div>

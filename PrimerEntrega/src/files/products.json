@@ -1,32 +1,32 @@
 [
-	{
-		"title": "pelota",
-		"description": "LA mejor pelota del mundo",
-		"price": 2500,
-		"thumbnail": "urlFoto",
-		"stock": 1,
-		"id": 1,
-		"code": 372,
-		"timestap": "2022-04-13T21:50:57.076Z"
-	},
-	{
-		"title": "Patin",
-		"description": "LA mejor pelota del mundo",
-		"price": 2500,
-		"thumbnail": "urlFoto",
-		"stock": 1,
-		"code": 435,
-		"timestap": "2022-04-13T21:50:57.780Z",
-		"id": 2
-	},
-	{
-		"title": "Patin",
-		"description": "LA mejor pelota del mundo",
-		"price": 2500,
-		"thumbnail": "urlFoto",
-		"stock": 1,
-		"code": 388,
-		"timestap": "2022-04-13T21:50:58.394Z",
-		"id": 3
-	}
+  {
+    "name": "bicicleta",
+    "description": "LA mejor pelota del mundo",
+    "price": 10500,
+    "thumbnail": "urlFoto",
+    "stock": 1500,
+    "id": 1,
+    "code": 372,
+    "timestap": "2022-04-13T21:50:57.076Z"
+  },
+  {
+    "name": "Patineta",
+    "description": "LA mejor pelota del mundo",
+    "price": 5500,
+    "thumbnail": "urlFoto",
+    "stock": 200,
+    "code": 435,
+    "timestap": "2022-04-13T21:50:57.780Z",
+    "id": 2
+  },
+  {
+    "name": "Medias",
+    "description": "LA mejor pelota del mundo",
+    "price": 2500,
+    "thumbnail": "urlFoto",
+    "stock": 1000,
+    "code": 388,
+    "timestap": "2022-04-13T21:50:58.394Z",
+    "id": 3
+  }
 ]

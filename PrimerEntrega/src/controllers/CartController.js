@@ -5,20 +5,32 @@ const cartManager = new CartManager(__dirname + '/files/cart.json');
 
 const createCart = async (req, res) => {
   const cart = await cartManager.set();
-  console.log(cart);
-  res.status(201).send({
-    message: 'Cart created',
-    cartId: cart,
-  });
+
+  if (cart) {
+    res.status(201).send({
+      message: 'Cart created',
+      cartId: cart,
+    });
+  } else {
+    res.status(400).send({
+      message: 'Bad request',
+    });
+  }
 };
 
 const deleteCart = async (req, res) => {
   const id = req.params.cid;
   const del = await cartManager.delete(id);
-  res.status(200).send({
-    message: 'Cart deleted',
-    cartId: id,
-  });
+  if (del) {
+    res.status(200).send({
+      message: 'Cart deleted',
+      cartId: id,
+    });
+  } else {
+    res.status(400).send({
+      message: 'Cant delete cart',
+    });
+  }
 };
 
 const getProducts = async (req, res) => {
@@ -40,9 +52,8 @@ const getProducts = async (req, res) => {
 const setProductsToCart = async (req, res) => {
   const cid = req.params.cid;
   const product = req.body;
-  // const  = product;
-  if (cid) {
-    const cart = await cartManager.setProductsToCart(cid, product);
+  const cart = await cartManager.setProductsToCart(cid, product);
+  if (cart) {
     res.status(200).send({
       message: 'Product added to cart',
       cartId: cid,
@@ -50,7 +61,7 @@ const setProductsToCart = async (req, res) => {
     });
   } else {
     res.status(400).send({
-      message: 'Bad request',
+      message: 'Cant add product to cart',
     });
   }
 };
@@ -59,12 +70,18 @@ const deleteProductsFromCart = async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
   const del = await cartManager.deleteProductFromCart(cid, pid);
-  res.status(200).send({
-    message: 'Product deleted from cart',
-    cartId: cid,
-    productId: pid,
-    product: del,
-  });
+  if (del) {
+    res.status(200).send({
+      message: 'Product deleted from cart',
+      cartId: cid,
+      productId: pid,
+      product: del,
+    });
+  } else {
+    res.status(400).send({
+      message: 'Cant delete product from cart',
+    });
+  }
 };
 export default {
   createCart,
