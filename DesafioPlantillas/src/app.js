@@ -14,7 +14,8 @@ const server = app.listen(PORT, () => {
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 //motor de vistas
-app.set('view engine', 'handlebars');
+// app.set('view engine', 'handlebars');
+app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());

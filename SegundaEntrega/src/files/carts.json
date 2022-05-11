@@ -1,0 +1,55 @@
+[
+	{
+		"id": 3,
+		"timestamp": "2022-05-11T03:50:30.796Z",
+		"products": [
+			{
+				"id": 1,
+				"timestamp": "2022-05-11T04:01:03.832Z",
+				"quantity": 5
+			},
+			{
+				"id": 3,
+				"timestamp": "2022-05-11T04:01:07.645Z",
+				"quantity": 2
+			}
+		]
+	},
+	{
+		"id": 4,
+		"timestamp": "2022-05-11T03:50:48.519Z",
+		"products": [
+			{
+				"id": 1,
+				"timestamp": "2022-05-11T04:01:17.983Z",
+				"quantity": 1
+			}
+		]
+	},
+	{
+		"id": 5,
+		"timestamp": "2022-05-11T03:56:26.945Z",
+		"products": [
+			{
+				"id": 1,
+				"timestamp": "2022-05-11T04:01:24.946Z",
+				"quantity": 1
+			},
+			{
+				"id": 2,
+				"timestamp": "2022-05-11T04:01:25.505Z",
+				"quantity": 1
+			}
+		]
+	},
+	{
+		"id": 6,
+		"timestamp": "2022-05-11T05:47:35.800Z",
+		"products": []
+	},
+	{
+		"id": 7,
+		"timestamp": "2022-05-11T05:47:37.333Z",
+		"products": []
+	}
+]

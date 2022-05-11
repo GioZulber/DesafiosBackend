@@ -1,0 +1,32 @@
+[
+	{
+		"id": 2,
+		"timestamp": "2022-05-11T04:10:58.278Z",
+		"title": "mouse",
+		"description": "LA mejor pelota del mundo",
+		"code": "123123",
+		"thumbnail": "urlFoto",
+		"price": 2500,
+		"stock": 1
+	},
+	{
+		"id": 3,
+		"timestamp": "2022-05-11T04:06:49.655Z",
+		"title": "pelota",
+		"description": "LA mejor pelota del mundo",
+		"code": "123123",
+		"thumbnail": "urlFoto",
+		"price": 2500,
+		"stock": 1
+	},
+	{
+		"id": 4,
+		"timestamp": "2022-05-11T04:06:59.483Z",
+		"title": "bicicleta",
+		"description": "LA mejor pelota del mundo",
+		"code": "123123",
+		"thumbnail": "urlFoto",
+		"price": 2500,
+		"stock": 1
+	}
+]
