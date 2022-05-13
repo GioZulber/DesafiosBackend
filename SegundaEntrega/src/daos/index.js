@@ -11,7 +11,6 @@ switch (config.databases.engine) {
   }
   case 'memory': {
     console.log('memory');
-
     daoProducts = require('./products/ProductosDaoMem');
     daoCarts = require('./carts/CarritosDaoMem');
     break;

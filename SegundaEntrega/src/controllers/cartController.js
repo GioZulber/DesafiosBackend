@@ -37,7 +37,6 @@ const deleteCart = async (req, res) => {
 const getCartProducts = async (req, res) => {
   const id = req.params.cid;
   const productsCart = await CartsModel.getCartProducts(id);
-  console.log(productsCart);
   if (id) {
     res.status(200).send({
       message: 'Productos en el carrito',

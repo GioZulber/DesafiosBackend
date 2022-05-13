@@ -6,7 +6,7 @@ const getProducts = async (req, res) => {
   const id = req.params.pid;
   const products = await ProductModel.getProducts(id);
   res.status(200).send({
-    message: 'Products encontraods',
+    message: 'Products encontrados',
     products: products,
   });
 };

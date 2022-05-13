@@ -1,7 +1,7 @@
 {
   "port": "3000",
   "databases": {
-    "engine": "memory",
+    "engine": "archivo",
     "uri": "mongodb+srv://giozulber:6dYnFldnFz2d5QcP@ecommercecluster.ml55j.mongodb.net/ecommerce?retryWrites=true&w=majority",
     "name": "ecommerce",
     "paths": {

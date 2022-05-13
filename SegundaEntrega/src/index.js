@@ -1,8 +1,6 @@
 /*MONGO DB*/
 
-// const connectDb = require('./conections/clienteMongoDB').connectDb;
 // const disconnect = require('./conections/clienteMongoDB').disconnect;
-// connectDb();
 // disconnect();
 
 /* MONGO DB*/
