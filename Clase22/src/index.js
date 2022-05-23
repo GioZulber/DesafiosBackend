@@ -37,7 +37,8 @@ const SocketServer = new Server(server);
     socket.on('sendMessage', (data) => {
       chat.mensajes.push(data);
       msgDb.setMsg(chat);
-      SocketServer.emit('newMsg', normalizedData);
+      let normalizedData = normalize(chat, chatSchema);
+      SocketServer.emit('log', normalizedData);
     });
   });
 })();
