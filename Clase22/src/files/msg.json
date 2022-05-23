@@ -1,0 +1,173 @@
+{
+	"id": "mensajes",
+	"mensajes": [
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zulberti",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "const authorSchema = new normalizr.schema.Entity('author', {}, { idAttribute: 'email' });"
+			},
+			"message": "hola",
+			"time": "9:45"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zulberti",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "const authorSchema = new normalizr.schema.Entity('author', {}, { idAttribute: 'email' });"
+			},
+			"message": "buenas",
+			"time": "9:45"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio ",
+				"lastName": "zulke",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+			},
+			"message": "hola",
+			"time": "9:50"
+		},
+		{
+			"author": {
+				"email": "test@gmail.com",
+				"name": "test",
+				"lastName": "testing",
+				"age": "25",
+				"nickname": "test",
+				"avatar": "1 - (JSON.stringify(data).length / JSON.stringify(chat).length)) * 100"
+			},
+			"message": "Buenas",
+			"time": "10:6"
+		},
+		{
+			"author": {
+				"email": "test@gmail.com",
+				"name": "test",
+				"lastName": "testing",
+				"age": "25",
+				"nickname": "test",
+				"avatar": "1 - (JSON.stringify(data).length / JSON.stringify(chat).length)) * 100"
+			},
+			"message": "hola",
+			"time": "10:6"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zuyl",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "1 - (JSON.stringify(data).length / JSON.stringify(chat).length)) * 100"
+			},
+			"message": "test",
+			"time": "10:7"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zuyl",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "1 - (JSON.stringify(data).length / JSON.stringify(chat).length)) * 100"
+			},
+			"message": "hola",
+			"time": "10:8"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zulbe",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "if (author.email === msg.author.email) {         messages += `<div id=\"myMessages\" class=\"myMessages\">                       <p id=\"log\" class=\"pMessage\"> ${msg.author.name}: ${msg.message}  <small>${msg.time}</small> </p>                   </div>`;       } else {         messages += `                   <div id=\"messages\" class=\"messages\" >                   <p id=\"log\" class=\"pMessage\"> ${msg.author.name}: ${msg.message}  <small>${msg.time}</small> </p>                   </div>`;"
+			},
+			"message": "gio",
+			"time": "10:13"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zulberti",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "nose"
+			},
+			"message": "test",
+			"time": "10:22"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "gasd",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "nose"
+			},
+			"message": "hola",
+			"time": "10:26"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "gio",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "gio"
+			},
+			"message": "gola",
+			"time": "11:3"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "gio",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "gio"
+			},
+			"message": "gs",
+			"time": "11:3"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "zul",
+				"age": "25",
+				"nickname": "gio",
+				"avatar": "gio"
+			},
+			"message": "hola",
+			"time": "11:6"
+		},
+		{
+			"author": {
+				"email": "gio@gmail.com",
+				"name": "gio",
+				"lastName": "gio",
+				"age": "25",
+				"nickname": "gui",
+				"avatar": "gui"
+			},
+			"message": "hola",
+			"time": "11:10"
+		}
+	]
+}

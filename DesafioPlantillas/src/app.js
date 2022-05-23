@@ -11,7 +11,7 @@ const server = app.listen(PORT, () => {
 });
 
 //motor de compilacion
-app.engine('handlebars', handlebars.engine());
+// app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 //motor de vistas
 // app.set('view engine', 'handlebars');
@@ -22,4 +22,4 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', viewsRouter);
-app.use('/api/productos', productRouter);
+app.use('/api/products', productRouter);

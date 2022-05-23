@@ -1,0 +1,13 @@
+<section class='products'>
+  <h1>Productos</h1>
+  <div>
+    {{#each products}}
+      <div class='table'>
+        <h2>{{name}}</h2>
+        <p>{{price}}</p>
+        <img src='{{thumbnail}}' alt='{{name}}' class='imagen' />
+      </div>
+    {{/each}}
+  </div>
+  <button class='button-back' onclick="window.location.href='/'">Volver</button>
+</section>

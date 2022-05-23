@@ -1,4 +1,5 @@
 let form = document.getElementById('productsForm');
+console.log("hola");
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -7,7 +8,7 @@ form.addEventListener('submit', (evt) => {
   data.forEach((value, key) => {
     obj[key] = value;
   });
-  fetch('/api/productos', {
+  fetch('/api/products', {
     method: 'POST',
     body: JSON.stringify(obj),
     headers: {

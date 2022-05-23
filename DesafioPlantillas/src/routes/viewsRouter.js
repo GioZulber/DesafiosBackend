@@ -15,16 +15,20 @@ const router = express.Router();
 
 //Ejs
 router.get('/', (req, res) => {
+  res.render('pages/index.ejs');
+});
+
+router.get('/products', (req, res) => {
   let products = ProductManager.get();
-  res.render('pages/index', { products });
+  res.render('pages/table.ejs', { products });
 });
 
 //ejs
-router.post('/productos', (req, res) => {
+router.post('/', (req, res) => {
   let product = req.body;
   ProductManager.add(product);
-  // res.redirect('/productos');
-  res.render('pages/index', { products: ProductManager.get() });
+  console.log(ProductManager.get());
+  res.status(201).render('pages/index.ejs');
 });
 
 export default router;
