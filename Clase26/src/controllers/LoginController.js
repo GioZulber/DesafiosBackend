@@ -17,15 +17,14 @@ const getLogout = async (req, res) => {
 		const data = {
 			user: user,
 		};
-		req.logout((err) => {
-			if (err) {
-				console.log('error', err);
-			}
-		});
-		// req.session.destroy((err) => {
-		// 	if (err) res.send(JSON.stringify(err));
-		// 	res.redirect('/register');
+		// req.logout((err) => {
+		// 	if (err) {
+		// 		console.log('error', err);
+		// 	}
 		// });
+		req.session.destroy((err) => {
+			if (err) res.send(JSON.stringify(err));
+		});
 		res.render('logout', { data: data });
 	} catch (error) {
 		console.log(error);
