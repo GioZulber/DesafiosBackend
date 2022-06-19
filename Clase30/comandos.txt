@@ -1,0 +1,13 @@
+Ejecuto node src/index CLUSTER
+Ejecuto node src/index // (Modo FORK)
+Inicio forever // forever start src/index
+Lo listo // forever list
+Ejecuto esto en powershell // tasklist /fi "imagename eq nginx.exe"
+Inicio pm2 modo fork // pm2 start src/index.js --name="ServidorUno" --watch -- 8080
+Inicio pm2 modo cluster // pm2 start src/index.js --name="ServidorDos" -i max --watch -- 8081
+Inicio pm2 modo cluster // pm2 start src/index.js --name="ServidorTes" -i max --watch -- 8082
+Inicio pm2 modo cluster // pm2 start src/index.js --name="ServidorCuatro" -i max --watch -- 8083
+Inicio pm2 modo cluster // pm2 start src/index.js --name="ServidorCinco" -i max --watch -- 8084
+Inicio pm2 modo cluster // pm2 start src/index.js --name="ServidorSeis" -i max --watch -- 8085
+Listo pm2 // pm2 list 
+Paro todos los procesos // pm2 stop all 

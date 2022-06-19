@@ -1,0 +1,5 @@
+2022/06/08 19:43:23 [error] 26748#21176: *1 CreateFile() "C:\Users\Giova\Downloads\nginx-1.22.0\nginx-1.22.0/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/06/19 11:43:48 [notice] 5960#20952: signal process started
+2022/06/19 11:43:48 [error] 5960#20952: OpenEvent("Global\ngx_reopen_27500") failed (2: The system cannot find the file specified)
+2022/06/19 12:13:22 [notice] 11936#4856: signal process started
+2022/06/19 12:51:36 [notice] 21004#14524: signal process started
