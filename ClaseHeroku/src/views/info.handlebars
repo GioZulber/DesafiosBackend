@@ -1,0 +1,44 @@
+<section class="section-info">
+	{{> session}}
+	<h1>Info</h1>
+	<button class='button-back' onclick="window.location.href='/'">Ir a Home</button>
+	<div class="table">
+
+	<table>
+		<tr class="tr-mayor">
+			<th>Clave</th>
+			<th>Valor</th>
+
+		</tr>
+		<tr class="tr-menor">
+			<td>Argumentos de entrada: </td>
+			<td>{{data.entryArgs}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Nombre de la plataforma(Sistema operativo): </td>
+			<td>{{data.platformName}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Version de Node: </td>
+			<td>{{data.nodeVersion}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Memoria total reservada: </td>
+			<td>{{data.memoryRss}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Path de ejecucion: </td>
+			<td>{{data.path}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Process id: </td>
+			<td>{{data.processId}}</td>
+		</tr>
+		<tr class="tr-menor">
+			<td>Carpeta del proyecto: </td>
+			<td>{{data.folder}}</td>
+		</tr>
+
+	</table>
+	</div>
+</section>
