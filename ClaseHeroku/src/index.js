@@ -3,7 +3,7 @@ const app = express();
 const { fork } = require('child_process');
 require('./config/clienteMongo');
 const { config } = require('./config/index');
-const { puerto } = require('./utils/minimist');
+// const { puerto } = require('./utils/minimist');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
@@ -12,12 +12,13 @@ const passport = require('passport');
 const ViewsRouter = require('./routes/viewsRouter.js');
 const LoginRouter = require('./routes/loginRouter.js');
 require('./utils/passport.js');
+const PORT = process.env.PORT || config.port;
 // Configuraciones
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-const server = app.listen(puerto, () => {
-	console.log(`Server is running on port ${puerto}`);
+const server = app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
 });
 const advancedOptions = {
 	useNewUrlParser: true,
