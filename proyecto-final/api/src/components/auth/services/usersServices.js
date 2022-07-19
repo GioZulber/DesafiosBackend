@@ -7,6 +7,10 @@ class UsersMongo extends ContainerMongo {
 	}
 
 	findUser = async (email) => {
+		return await this.model.findOne({ email: email }, { password: 0, __v: 0 });
+	};
+
+	findUserCompare = async (email) => {
 		try {
 			const emailUser = await this.model.findOne({ email: email });
 			return emailUser;

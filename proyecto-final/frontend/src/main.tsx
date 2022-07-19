@@ -6,9 +6,9 @@ import theme from './styles/theme';
 import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<ChakraProvider theme={theme}>
-			<App />
-		</ChakraProvider>
-	</React.StrictMode>
+	// <React.StrictMode>
+	<ChakraProvider theme={theme}>
+		<App />
+	</ChakraProvider>
+	// {/* </React.StrictMode> */}
 );

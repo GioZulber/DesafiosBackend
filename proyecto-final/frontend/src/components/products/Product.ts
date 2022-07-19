@@ -1,7 +1,13 @@
 export interface Product {
-	id: string;
-	isNew: boolean;
-	imageURL: string;
-	name: string;
+	id: number;
+	title: string;
+	description: string;
+	code: string;
+	thumbnail: string;
 	price: number;
+	stock: number;
+}
+
+export interface PutProduct extends Product {
+	id: number;
 }

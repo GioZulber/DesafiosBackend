@@ -5,11 +5,14 @@ import { Input } from './Input';
 import { registerUser } from '../User/userService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/userContext';
 export const Register = () => {
+	const { getUserData } = useUser();
+
 	const initialState = {
 		email: '',
-		password: '',
 		name: '',
+		password: '',
 		address: '',
 		phone: '',
 		age: 0,
@@ -25,15 +28,21 @@ export const Register = () => {
 	};
 
 	const navigate = useNavigate();
+
 	const handleSubmit = async (e: FormEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		//Hacer el push a la base de datos
 		const signUp = await registerUser(data);
 		if (signUp.status === 200) {
 			toast.success('Bienvenido');
-			navigate('/');
-		} else {
-			toast.error('Usuario o contraseña incorrectos');
+			getUserData();
+			setTimeout(() => {
+				navigate('/');
+			}, 500);
+		}
+		if (signUp.status === 401) {
+			toast.error('Error al registrarse');
+			setData(initialState);
 		}
 
 		setData(initialState);

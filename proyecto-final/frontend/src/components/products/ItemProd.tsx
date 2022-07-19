@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import {
 	Flex,
 	Circle,
@@ -8,18 +9,13 @@ import {
 	Icon,
 	chakra,
 	Tooltip,
+	Button,
 } from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { useUser } from '../../context/userContext';
 import { Product } from './Product';
-
-// const data = {
-// 	isNew: true,
-// 	imageURL:
-// 		'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-// 	name: 'Wayfarer Classic',
-// 	price: 4.5,
-// 	rating: 4.2,
-// };
+import { deleteProduct, updateProduct } from './productService';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
 	product: Product;
@@ -27,32 +23,44 @@ interface Props {
 
 export const ProductCard = (props: Props) => {
 	const { product } = props;
+	const { user } = useUser();
+
+	const id = product.id;
+
+	// const onClickUpdate = async (product: Product) => {
+
+	// };
+	const navigate = useNavigate();
+	const onClickDelete = async (id: number): Promise<Product> => {
+		const res = await deleteProduct(id);
+		if (res.status === 200) {
+			console.log('Producto eliminado');
+			navigate('/products');
+		}
+		return res.data;
+	};
+
 	return (
 		<Box
 			bg={useColorModeValue('white', 'gray.800')}
-			w='200px'
+			w='220px'
 			m={2}
 			borderWidth='1px'
 			rounded='lg'
 			shadow='lg'
 			position='relative'>
-			{product.isNew && (
-				<Circle size='10px' position='absolute' top={2} right={2} bg='red.200' />
-			)}
-
-			<Image src={product.imageURL} alt={`Picture of ${product.name}`} roundedTop='lg' />
+			<Image
+				src={product.thumbnail}
+				alt={`Picture of ${product.title}`}
+				roundedTop='lg'
+				w={'100%'}
+				h={'290px'}
+			/>
 
 			<Box p='4'>
-				<Box display='flex' alignItems='baseline'>
-					{product.isNew && (
-						<Badge rounded='full' px='2' fontSize='0.6em' colorScheme='red'>
-							New
-						</Badge>
-					)}
-				</Box>
 				<Flex mt='1' justifyContent='space-between' alignContent='center'>
 					<Box fontSize='l' fontWeight='semibold' as='h4' lineHeight='tight'>
-						{product.name}
+						{product.title}
 					</Box>
 					<Tooltip
 						label='Add to cart'
@@ -69,11 +77,31 @@ export const ProductCard = (props: Props) => {
 				<Flex justifyContent='space-between' alignContent='center'>
 					<Box fontSize='ll' color={useColorModeValue('gray.900', 'white')}>
 						<Box as='span' color={'gray.600'} fontSize='lg'>
-							$
+							${product.price}
 						</Box>
-						{product.price}
 					</Box>
 				</Flex>
+
+				{user?.role === 'admin' && (
+					<Flex mt='2' direction={'column'} justifyContent={'center'}>
+						<Button
+							// onClick={() => onClickUpdate(product)}
+							variant={'solid'}
+							colorScheme={'teal'}
+							size={'sm'}
+							m={'1'}>
+							Actualizar
+						</Button>
+						<Button
+							onClick={() => onClickDelete(id)}
+							variant={'solid'}
+							colorScheme={'teal'}
+							size={'sm'}
+							m={'1'}>
+							Borrar
+						</Button>
+					</Flex>
+				)}
 			</Box>
 		</Box>
 	);

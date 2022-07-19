@@ -62,9 +62,10 @@ app.use(
 );
 
 app.use('/', require('./routes/viewsRouter.js'));
+app.use('/', require('./routes/authRouter.js'));
 app.use('/api/products', require('./routes/productRouter.js'));
 app.use('/api/carts', require('./routes/cartRouter.js'));
-app.use('/', require('./routes/loginRouter.js'));
+
 // app.use('/api/randoms', (req, res) => {
 // 	let cant = req.query.cant || 100000000;
 // 	const child = fork('./src/random.js');

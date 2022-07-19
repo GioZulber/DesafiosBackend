@@ -3,11 +3,12 @@ import { Login } from './components/Form/Login';
 import { Register } from './components/Form/Register';
 import { Home } from './components/Home/Home';
 import { Navbar } from './components/Navbar/Navbar';
-import { ListProducts } from './components/products/ListProducts';
+import { ListProducts } from './components/Products/ListProducts';
 import { Cart } from './components/cart/Cart';
 import { ToastContainer } from 'react-toastify';
 import { Logout } from './components/User/Logout';
 import { UserProvider } from './context/userContext';
+import { PostPoducts } from './components/Form/PostProducts';
 const routes = [
 	{ path: '/', element: <Home /> },
 	{ path: '/products', element: <ListProducts /> },
@@ -15,13 +16,15 @@ const routes = [
 	{ path: '/register', element: <Register /> },
 	{ path: '/cart', element: <Cart /> },
 	{ path: '/logout', element: <Logout /> },
+	{ path: '/post-products', element: <PostPoducts /> },
+
 	// { path: '/products', element: <Products /> },
 ];
 
 function App() {
 	return (
-		<UserProvider>
-			<BrowserRouter>
+		<BrowserRouter>
+			<UserProvider>
 				<Navbar />
 				<Routes>
 					{routes.map(({ path, element }, index) => (
@@ -29,8 +32,8 @@ function App() {
 					))}
 				</Routes>
 				<ToastContainer />
-			</BrowserRouter>
-		</UserProvider>
+			</UserProvider>
+		</BrowserRouter>
 	);
 }
 

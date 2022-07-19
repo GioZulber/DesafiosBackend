@@ -1,29 +1,42 @@
 import axios from 'axios';
-import { UserRegister, UserLogin } from './User';
+import { UserRegister, UserLogin, User } from './User';
 
 const API = import.meta.env.VITE_NODE_API;
 
-export const registerUser = async (user: UserRegister) => {
-	const res = await axios.post<UserRegister>(`${API}/register`, user);
-	console.log(res);
+export const getUser = async (email: string) => {
+	const response = await axios.get<User>(`${API}/user/${email}`, {
+		headers: {
+			'Content-Type': 'application/json',
+			'x-access-token': localStorage.getItem('user') || '',
+		},
+	});
 
-	if (res.data) {
-		localStorage.setItem('user', JSON.stringify(res.data));
-	}
-	return res;
+	return response.data;
+};
+
+export const registerUser = async (user: UserRegister) => {
+	const response = await axios
+		.post(`${API}/register`, user)
+		.then((res) => {
+			localStorage.setItem('user', res.data.token);
+			return res;
+		})
+		.catch((err) => {
+			return err.response;
+		});
+	return response;
 };
 
 export const loginUser = async (user: UserLogin) => {
-	const res = await axios.post<UserLogin>(`${API}/login`, user);
+	const response = await axios
+		.post(`${API}/login`, user)
+		.then((res) => {
+			localStorage.setItem('user', res.data.token);
+			return res;
+		})
+		.catch((err) => {
+			return err.response;
+		});
 
-	if (res.data) {
-		localStorage.setItem('user', JSON.stringify(res.data));
-	}
-
-	return res;
-};
-
-export const logoutUser = async () => {
-	// const res = await axios.get<UserRegister>(`${API}/logout`, {});
-	localStorage.removeItem('user');
+	return response;
 };

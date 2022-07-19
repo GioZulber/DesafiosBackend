@@ -20,15 +20,16 @@ class ProductDaoMongo extends ContenedorMongo {
 			console.log(`Could not get products: ${error}`);
 		}
 	};
-	setProduct = async (porduct) => {
+	setProduct = async (product) => {
 		try {
+			console.log(product);
 			let lastId = await this.model.findOne({}, {}, { sort: { id: -1 } });
 			let id = lastId ? Number(lastId.id) + 1 : 1;
 			let date = new Date();
 			const set = await this.model.create({
 				id: id,
 				timestamp: date,
-				...porduct,
+				...product,
 			});
 			return set;
 		} catch (error) {

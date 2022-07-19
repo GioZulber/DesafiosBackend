@@ -1,43 +1,60 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-interface User {
-	email: string;
-	name: string;
-}
-type UserContext = {
-	user: User | null;
-	login: (user: User) => void;
-	children: React.ReactNode;
-};
+import { User } from '../components/User/User';
+import { getUser } from '../components/User/userService';
+import { toast } from 'react-toastify';
+import { Product } from '../components/Products/Product';
 
-const UserContext = createContext();
+interface ContextProps {
+	user: User | null;
+	getUserData(): void;
+	getLogout(): void;
+}
+interface UserProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
+
+const UserContext = createContext({} as ContextProps);
 
 export const useUser = () => useContext(UserContext);
 
-export const UserProvider = ({ children }: UserContext) => {
-	const [user, setUser] = useState<User>({
-		email: '',
-		name: 'user',
-	});
-
+export const UserProvider = ({ children }: UserProviderProps) => {
+	const [user, setUser] = useState<User | null>(null);
+	const [cart, setCart] = useState<Product[]>([]);
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		const token = localStorage.getItem('user');
-		console.log(token);
 		if (token) {
-			const decoded: User = jwtDecode(token);
-			console.log(decoded);
-			setUser({
-				email: decoded.email,
-				name: decoded.name,
-			});
-			if (!decoded.name) {
-				localStorage.removeItem('user');
-				navigate('/register');
-			}
+			getUserData();
+		}
+	}, [user]);
+
+	useEffect(() => {
+		if (user) {
 		}
 	}, []);
 
-	return <UserContext.Provider value={[{ user, setUser }]}>{children}</UserContext.Provider>;
+	const getUserData = async () => {
+		const token = localStorage.getItem('user');
+		if (token) {
+			const decoded: User = jwtDecode(token);
+			const userData: User = await getUser(decoded.email);
+			setUser(userData);
+		} else {
+			toast.info('No hay usuario');
+		}
+	};
+
+	const getLogout = () => {
+		localStorage.removeItem('user');
+		setUser(null);
+	};
+
+	return (
+		<UserContext.Provider value={{ user, getUserData, getLogout }}>
+			{children}
+		</UserContext.Provider>
+	);
 };

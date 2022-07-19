@@ -1,20 +1,23 @@
 import { useState, FormEvent } from 'react';
-import { Stack, Flex, Button, Heading, Text, interactivity } from '@chakra-ui/react';
+import { Stack, Flex, Button, Heading, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from './Input';
 import { loginUser } from '../User/userService';
 import { toast } from 'react-toastify';
+import { useUser } from '../../context/userContext';
 
 type User = {
 	email: string;
 	password: string;
 };
 
+const initialState = {
+	email: '',
+	password: '',
+};
+
 export const Login = () => {
-	const initialState = {
-		email: '',
-		password: '',
-	};
+	const { getUserData } = useUser();
 
 	const [data, setData] = useState<User>(initialState);
 
@@ -28,20 +31,26 @@ export const Login = () => {
 		e.preventDefault();
 		//Hacer el push a la base de datos
 		const singin = await loginUser(data);
+		console.log(singin);
 
 		if (singin.status === 200) {
 			toast.success('Bienvenido');
-			navigate('/');
-		} else {
+			getUserData();
+			setTimeout(() => {
+				navigate('/');
+			}, 500);
+		}
+		if (singin.status === 401) {
 			toast.error('Usuario o contraseña incorrectos');
 		}
+
 		setData(initialState);
 	};
 
 	return (
 		<Flex p={20} display='flex' direction={'column'} align='center' justify='center'>
 			<Heading as='h1' size='xl' m={5}>
-				Registrese
+				Login
 			</Heading>
 			<Flex
 				as='form'

@@ -18,23 +18,19 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { logoutUser } from '../User/userService';
-
-// const Links = ['Dashboard', 'Projects', 'Team'];
+import { useUser } from '../../context/userContext';
 
 const Links = [
 	{ to: '/', text: 'Home' },
 	{ to: '/products', text: 'Products' },
-	{ to: '/login', text: 'Login' },
-	{ to: '/register', text: 'Register' },
 ];
 
 export const Navbar = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
+	const { user, getLogout } = useUser();
 	const navigate = useNavigate();
-	const handleLogout = async () => {
-		await logoutUser();
+	const handleLogout = () => {
+		getLogout();
 		navigate('/login');
 	};
 
@@ -93,12 +89,7 @@ export const Navbar = () => {
 								variant={'link'}
 								// cursor={'pointer'}
 								minW={0}>
-								<Avatar
-									size={'sm'}
-									src={
-										'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-									}
-								/>
+								<Avatar size={'sm'} src={user?.avatar} />
 							</MenuButton>
 							{/* <MenuList bg={'gray.900'}>
 								<MenuItem>Link 1</MenuItem>
