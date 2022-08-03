@@ -20,17 +20,18 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
 
-const Links = [
-	{ to: '/', text: 'Home' },
-	{ to: '/products', text: 'Products' },
-];
-
 export const Navbar = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { user, getLogout } = useUser();
+	const { user, logoutUser } = useUser();
 	const navigate = useNavigate();
+
+	const Links = [
+		user !== null ? { to: '/home', text: 'Inicio' } : { to: '/', text: 'Inicio' },
+		{ to: '/products', text: 'Products' },
+	];
+
 	const handleLogout = () => {
-		getLogout();
+		logoutUser();
 		navigate('/login');
 	};
 

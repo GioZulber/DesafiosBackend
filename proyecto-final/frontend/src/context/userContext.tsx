@@ -1,59 +1,129 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
-import { User } from '../components/User/User';
-import { getUser } from '../components/User/userService';
-import { toast } from 'react-toastify';
-import { Product } from '../components/Products/Product';
+import { createContext, useContext, useState, useEffect, useReducer } from 'react';
+import { ContextProps, ProviderProps, ActionType } from './contextProps';
+// import { loginUser, registerUser } from '../components/User/userService';
+import { UserLogin, UserRegister } from '../components/User/User';
+import axios from 'axios';
 
-interface ContextProps {
-	user: User | null;
-	getUserData(): void;
-	getLogout(): void;
-}
-interface UserProviderProps {
-	children: JSX.Element | JSX.Element[];
-}
+const API = import.meta.env.VITE_NODE_API;
+
+const initialState = {
+	isAuthenticated: false,
+	user: null,
+};
+
+const authReducer = (state = initialState, { type, payload }: ActionType) => {
+	switch (type) {
+		case 'LOGIN':
+			return {
+				...state,
+				isAuthenticated: true,
+				user: payload.user,
+			};
+		case 'LOGOUT':
+			return {
+				...state,
+				isAuthenticated: false,
+				user: null,
+			};
+		default: {
+			return state;
+		}
+	}
+};
 
 const UserContext = createContext({} as ContextProps);
 
 export const useUser = () => useContext(UserContext);
 
-export const UserProvider = ({ children }: UserProviderProps) => {
-	const [user, setUser] = useState<User | null>(null);
-	const [cart, setCart] = useState<Product[]>([]);
-	const navigate = useNavigate();
+export const UserProvider = ({ children }: ProviderProps) => {
+	const [state, dispatch] = useReducer(authReducer, initialState);
 
-	useEffect(() => {
+	const getUserInfo = async () => {
 		const token = localStorage.getItem('user');
 		if (token) {
-			getUserData();
-		}
-	}, [user]);
-
-	useEffect(() => {
-		if (user) {
-		}
-	}, []);
-
-	const getUserData = async () => {
-		const token = localStorage.getItem('user');
-		if (token) {
-			const decoded: User = jwtDecode(token);
-			const userData: User = await getUser(decoded.email);
-			setUser(userData);
+			try {
+				const res = await axios.get(`${API}/user`, {
+					headers: {
+						authorization: token,
+					},
+				});
+				dispatch({
+					type: 'LOGIN',
+					payload: {
+						user: res.data,
+					},
+				});
+				console.log(res.data);
+			} catch (error) {
+				console.error(error);
+			}
 		} else {
-			toast.info('No hay usuario');
+			delete axios.defaults.headers.common['authorization'];
 		}
 	};
 
-	const getLogout = () => {
-		localStorage.removeItem('user');
-		setUser(null);
+	useEffect(() => {
+		if (!state.user) {
+			async function getUser() {
+				await getUserInfo();
+			}
+			getUser();
+		}
+	}, [state]);
+
+	console.log(state);
+
+	const loginUser = async (user: UserLogin) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		try {
+			const response = await axios
+				.post(`${API}/login`, user, config)
+				.then((res) => {
+					localStorage.setItem('user', res.data.token);
+					return res;
+				})
+				.catch((err) => {
+					return err.response;
+				});
+			await getUserInfo();
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const registerUser = async (user: UserRegister) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.post(`${API}/register`, user, config);
+			localStorage.setItem('user', res.data.token);
+			await getUserInfo();
+			return res;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const logoutUser = () => {
+		try {
+			localStorage.removeItem('user');
+			dispatch({ type: 'LOGOUT' });
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
-		<UserContext.Provider value={{ user, getUserData, getLogout }}>
+		<UserContext.Provider value={{ ...state, loginUser, registerUser, logoutUser }}>
 			{children}
 		</UserContext.Provider>
 	);

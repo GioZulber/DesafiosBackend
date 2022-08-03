@@ -14,6 +14,8 @@ export interface UserLogin {
 }
 
 export interface User {
+	id: number;
+	exp: number;
 	email: string;
 	name: string;
 	address: string;

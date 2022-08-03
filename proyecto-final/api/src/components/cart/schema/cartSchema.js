@@ -11,7 +11,7 @@ const cartSchema = mongoose.Schema({
 		require: true,
 	},
 	products: {
-		type: productSchema,
+		type: [],
 	},
 });
 

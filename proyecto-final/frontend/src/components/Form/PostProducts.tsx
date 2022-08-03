@@ -7,7 +7,6 @@ import { createProduct } from '../Products/productService';
 import { toast } from 'react-toastify';
 
 const initialState: Product = {
-	id: 0,
 	title: '',
 	description: '',
 	code: '',
@@ -26,7 +25,7 @@ export const PostPoducts = () => {
 		e.preventDefault();
 		//Hacer el push a la base de datos
 		const add = await createProduct(data);
-		if (add.status === 200) {
+		if (add?.status === 200) {
 			toast.success('Producto agregado');
 			setData(initialState);
 		} else {

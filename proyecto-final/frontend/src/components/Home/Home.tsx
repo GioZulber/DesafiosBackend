@@ -2,23 +2,14 @@ import { Button, Flex, Heading, Link, Stack, Text } from '@chakra-ui/react';
 
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
-import { AdminHome } from './AdminHome';
-import { UserHome } from './UserHome';
 
 export const Home: any = () => {
 	const { user } = useUser();
 
-	const roleHome = () => {
-		if (user) {
-			if (user.role === 'admin') {
-				return <AdminHome user={user} />;
-			}
-			return <UserHome user={user} />;
-		}
-	};
+	const navigate = useNavigate();
 
 	return user ? (
-		roleHome()
+		navigate('/home')
 	) : (
 		<Stack p={20} display='flex' direction={'column'} align='center' justify='center'>
 			<Flex

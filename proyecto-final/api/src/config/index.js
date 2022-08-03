@@ -13,4 +13,17 @@ let config = {
 	server_mode: args[0] || 'FORK',
 };
 
-module.exports = { config };
+let config_twilio = {
+	sid: process.env.TWILIO_SID,
+	token: process.env.TWILIO_TOKEN,
+	wpp: process.env.TWILIO_WPP,
+	wpp_admin: process.env.TWILIO_WPP_ADMIN,
+};
+
+let config_nodemailer = {
+	email_from: process.env.NODEMAILER_EMAIL_FROM,
+	password: process.env.NODEMAILER_PASSWORD,
+	email_to: process.env.NODEMAILER_EMAIL_TO,
+};
+
+module.exports = { config, config_twilio, config_nodemailer };

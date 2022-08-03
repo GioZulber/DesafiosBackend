@@ -55,4 +55,4 @@ class ProductDaoMongo extends ContenedorMongo {
 	};
 }
 
-module.exports = ProductDaoMongo;
+module.exports = new ProductDaoMongo();

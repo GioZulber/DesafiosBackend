@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react';
 import { Stack, Flex, Button, Heading, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from './Input';
-import { loginUser } from '../User/userService';
+// import { loginUser } from '../User/userService';
 import { toast } from 'react-toastify';
 import { useUser } from '../../context/userContext';
 
@@ -17,7 +17,7 @@ const initialState = {
 };
 
 export const Login = () => {
-	const { getUserData } = useUser();
+	const { loginUser } = useUser();
 
 	const [data, setData] = useState<User>(initialState);
 
@@ -29,23 +29,25 @@ export const Login = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLDivElement>) => {
 		e.preventDefault();
-		//Hacer el push a la base de datos
-		const singin = await loginUser(data);
-		console.log(singin);
+		try {
+			const singin = await loginUser(data);
 
-		if (singin.status === 200) {
-			toast.success('Bienvenido');
-			getUserData();
-			setTimeout(() => {
-				navigate('/');
-			}, 500);
+			if (singin?.status === 200) {
+				toast.success('Bienvenido');
+				setTimeout(() => {
+					navigate('/home');
+				}, 1000);
+				setData(initialState);
+			}
+			if (singin?.status === 401) {
+				toast.error('Usuario o contraseña incorrectos');
+			}
+		} catch (error) {
+			console.log(error);
 		}
-		if (singin.status === 401) {
-			toast.error('Usuario o contraseña incorrectos');
-		}
-
-		setData(initialState);
 	};
+
+	const disabled = !data.email || !data.password;
 
 	return (
 		<Flex p={20} display='flex' direction={'column'} align='center' justify='center'>
@@ -72,7 +74,7 @@ export const Login = () => {
 					/>
 				</Stack>
 
-				<Button type='submit' mt='6' mb='2' colorScheme='purple'>
+				<Button type='submit' mt='6' mb='2' colorScheme='purple' isDisabled={disabled}>
 					Entrar
 				</Button>
 				<Text fontSize='xs' color='gray.500' textAlign='center'>

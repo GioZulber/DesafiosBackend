@@ -1,15 +1,17 @@
 const Validate = require('../../../utils/validate');
-const JWT = require('jsonwebtoken');
 const { config } = require('../../../config/index');
-const UsersMongo = require('../services/usersServices');
-
-const usersServices = new UsersMongo();
+const usersServices = require('../services/usersServices');
+const JWT = require('../../../utils/jwt');
+const { sendEmailRegister } = require('../../../utils/nodemailer');
+const { sendTwilioRegister } = require('../../../utils/twilio');
 
 const getUser = async (req, res) => {
 	try {
-		const { email } = req.params;
+		const token = req.headers.authorization;
 
-		const user = await usersServices.findUser(email);
+		const decoded = await JWT.verifyToken(token, config.secret_key);
+
+		const user = await usersServices.findUser(decoded.email);
 
 		if (!user) return res.status(401).json({ error: 'User not found' });
 		return res.status(200).json(user);
@@ -44,11 +46,12 @@ const register = async (req, res) => {
 			}
 			await usersServices.createUser(newUser);
 
-			const userForToken = { name: user.name, email: email };
+			const userForToken = { name: name, email: email };
 
-			const token = JWT.sign(userForToken, config.secret_key, {
-				expiresIn: '24h',
-			});
+			const token = await JWT.generateToken(userForToken);
+
+			await sendEmailRegister(newUser.name);
+			await sendTwilioRegister(newUser.name);
 
 			return res.status(200).json({ token });
 		}
@@ -70,9 +73,8 @@ const login = async (req, res) => {
 
 		const userForToken = { name: user.name, email: email };
 
-		const token = JWT.sign(userForToken, config.secret_key, {
-			expiresIn: '24h',
-		});
+		const token = await JWT.generateToken(userForToken);
+
 		return res.json({ token });
 	} catch (error) {
 		console.log(error);
@@ -81,8 +83,7 @@ const login = async (req, res) => {
 
 const getLogout = async (req, res) => {
 	try {
-		// console.log(req.headers['x-access-token']);
-		// JWT.verify(req.headers['x-access-token'], config.secret_key);
+		return res.status(200).json({ message: 'Logout' });
 	} catch (error) {
 		console.log(error);
 	}

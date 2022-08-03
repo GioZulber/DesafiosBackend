@@ -1,5 +1,6 @@
 import { Product } from '../Products/Product';
-export interface Cart {
-	id: number;
+export interface CartType {
+	id?: number;
+	timestamp?: string;
 	products: Product[];
 }

@@ -17,17 +17,21 @@ class CartsDaoMongo extends ContenedorMongo {
 			console.log(`Could not get cart: ${error}`);
 		}
 	};
-	setCart = async () => {
+	setCart = async (id) => {
 		try {
-			let lastId = await this.model.findOne({}, {}, { sort: { id: -1 } });
-			let id = lastId ? Number(lastId.id) + 1 : 1;
-			let date = new Date();
-			const set = await this.model.create({
-				id: id,
-				timestamp: date,
-				products: [],
-			});
-			return set;
+			let verify = await this.getCart(id);
+
+			if (verify.id === id) {
+				return { message: 'El carrito ya existe', data: verify };
+			} else {
+				let date = new Date();
+				const set = await this.model.create({
+					id: id,
+					timestamp: date,
+					products: [],
+				});
+				return set;
+			}
 		} catch (error) {
 			console.log(`Could not set cart: ${error}`);
 		}
@@ -56,12 +60,9 @@ class CartsDaoMongo extends ContenedorMongo {
 	setProductToCart = async (cid, product) => {
 		try {
 			let cart = await this.getCart(cid);
-
-			let id = cart.products.length > 0 ? cart.products[cart.products.length - 1].id + 1 : 1;
-			console.log(id);
 			if (cart) {
 				let isInCart = cart.products.some((prod) => prod.id === Number(product.id));
-				console.log(isInCart);
+
 				if (isInCart) {
 					cart.products.forEach((prod) => {
 						if (prod.id === product.id) {
@@ -69,13 +70,10 @@ class CartsDaoMongo extends ContenedorMongo {
 						}
 					});
 				} else {
-					cart.products.push({
-						id: product.id || id,
-						quantity: product.quantity || 1,
-						timestamp: product.timestamp || new Date(),
-					});
+					cart.products.push(product);
 				}
 				await this.model.updateOne({ id: cid }, cart);
+
 				return cart.products;
 			} else {
 				return { message: 'No existe el carrito' };
@@ -103,4 +101,4 @@ class CartsDaoMongo extends ContenedorMongo {
 	};
 }
 
-module.exports = CartsDaoMongo;
+module.exports = new CartsDaoMongo();

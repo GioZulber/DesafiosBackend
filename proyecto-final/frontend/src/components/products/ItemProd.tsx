@@ -16,6 +16,9 @@ import { useUser } from '../../context/userContext';
 import { Product } from './Product';
 import { deleteProduct, updateProduct } from './productService';
 import { useNavigate } from 'react-router-dom';
+import { addProductToCart } from '../cart/cartService';
+import { Cart } from '../cart/Cart';
+import { CartType } from '../cart/CartTypes';
 
 interface Props {
 	product: Product;
@@ -31,18 +34,29 @@ export const ProductCard = (props: Props) => {
 
 	// };
 	const navigate = useNavigate();
+
 	const onClickDelete = async (id: number): Promise<Product> => {
 		const res = await deleteProduct(id);
-		if (res.status === 200) {
+		if (res?.status === 200) {
 			console.log('Producto eliminado');
 			navigate('/products');
 		}
-		return res.data;
+		return res?.data;
+	};
+
+	const onClickAddToCart = async (product: Product) => {
+		if (user) {
+			const res = await addProductToCart(user.id, product);
+			if (res?.status === 200) {
+				console.log('Producto agregado al carrito');
+			}
+			return res?.data;
+		}
 	};
 
 	return (
 		<Box
-			bg={useColorModeValue('white', 'gray.800')}
+			bg={'white'}
 			w='220px'
 			m={2}
 			borderWidth='1px'
@@ -54,7 +68,6 @@ export const ProductCard = (props: Props) => {
 				alt={`Picture of ${product.title}`}
 				roundedTop='lg'
 				w={'100%'}
-				h={'290px'}
 			/>
 
 			<Box p='4'>
@@ -68,9 +81,9 @@ export const ProductCard = (props: Props) => {
 						placement={'top'}
 						color={'gray.800'}
 						fontSize={'1.2em'}>
-						<chakra.a href={'#'} display={'flex'}>
+						<Button display={'flex'} onClick={() => onClickAddToCart(product)}>
 							<Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} />
-						</chakra.a>
+						</Button>
 					</Tooltip>
 				</Flex>
 
@@ -93,7 +106,7 @@ export const ProductCard = (props: Props) => {
 							Actualizar
 						</Button>
 						<Button
-							onClick={() => onClickDelete(id)}
+							onClick={() => onClickDelete(id!)}
 							variant={'solid'}
 							colorScheme={'teal'}
 							size={'sm'}

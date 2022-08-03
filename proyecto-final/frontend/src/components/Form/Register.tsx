@@ -1,13 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { UserRegister } from '../User/User';
-import { Stack, Flex, Button, Heading, Text } from '@chakra-ui/react';
+import { Stack, Flex, Button, Heading, Text, color } from '@chakra-ui/react';
 import { Input } from './Input';
-import { registerUser } from '../User/userService';
+// import { registerUser } from '../User/userService';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useHref, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
 export const Register = () => {
-	const { getUserData } = useUser();
+	const { registerUser } = useUser();
 
 	const initialState = {
 		email: '',
@@ -31,22 +31,27 @@ export const Register = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLDivElement>) => {
 		e.preventDefault();
-		//Hacer el push a la base de datos
-		const signUp = await registerUser(data);
-		if (signUp.status === 200) {
-			toast.success('Bienvenido');
-			getUserData();
-			setTimeout(() => {
-				navigate('/');
-			}, 500);
-		}
-		if (signUp.status === 401) {
-			toast.error('Error al registrarse');
-			setData(initialState);
-		}
 
-		setData(initialState);
+		try {
+			const signUp = await registerUser(data);
+
+			if (signUp.status === 200) {
+				toast.success('Bienvenido');
+				navigate('/home');
+			}
+			if (signUp.status === 401) {
+				toast.error('Error al registrarse');
+				setData(initialState);
+			}
+
+			setData(initialState);
+		} catch (error) {
+			console.log(error);
+		}
 	};
+
+	const disabled =
+		!data.email || !data.name || !data.password || !data.address || !data.phone || !data.age;
 
 	return (
 		<Flex p={20} display='flex' direction={'column'} align='center' justify='center'>
@@ -77,8 +82,8 @@ export const Register = () => {
 					<Input name='avatar' type='text' label='Avatar' onChange={handleChange} />
 				</Stack>
 
-				<Button type='submit' mt='6' mb='2' colorScheme='purple'>
-					Entrar
+				<Button type='submit' mt='6' mb='2' colorScheme='purple' isDisabled={disabled}>
+					Registrarse
 				</Button>
 
 				<Text fontSize='xs' color='gray.500' textAlign='center'>
