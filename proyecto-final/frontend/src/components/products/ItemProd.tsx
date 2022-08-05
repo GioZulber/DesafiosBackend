@@ -1,16 +1,5 @@
 import { MouseEventHandler } from 'react';
-import {
-	Flex,
-	Circle,
-	Box,
-	Image,
-	Badge,
-	useColorModeValue,
-	Icon,
-	chakra,
-	Tooltip,
-	Button,
-} from '@chakra-ui/react';
+import { Flex, Box, Image, useColorModeValue, Icon, Tooltip, Button, Text } from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { useUser } from '../../context/userContext';
 import { Product } from './Product';
@@ -46,7 +35,7 @@ export const ProductCard = (props: Props) => {
 
 	const onClickAddToCart = async (product: Product) => {
 		if (user) {
-			const res = await addProductToCart(user.id, product);
+			const res = await addProductToCart(user.userId, product);
 			if (res?.status === 200) {
 				console.log('Producto agregado al carrito');
 			}
@@ -54,15 +43,18 @@ export const ProductCard = (props: Props) => {
 		}
 	};
 
+	const innerBoxStyles = {
+		bg: 'white',
+		w: '220px',
+		m: '2',
+		borderWidth: '1px',
+		rounded: 'lg',
+		shadow: 'lg',
+		position: 'relative',
+	};
+
 	return (
-		<Box
-			bg={'white'}
-			w='220px'
-			m={2}
-			borderWidth='1px'
-			rounded='lg'
-			shadow='lg'
-			position='relative'>
+		<Box sx={innerBoxStyles}>
 			<Image
 				src={product.thumbnail}
 				alt={`Picture of ${product.title}`}
@@ -72,8 +64,10 @@ export const ProductCard = (props: Props) => {
 
 			<Box p='4'>
 				<Flex mt='1' justifyContent='space-between' alignContent='center'>
-					<Box fontSize='l' fontWeight='semibold' as='h4' lineHeight='tight'>
-						{product.title}
+					<Box>
+						<Text fontSize='l' fontWeight='semibold' lineHeight='tight'>
+							{product.title}
+						</Text>
 					</Box>
 					<Tooltip
 						label='Add to cart'

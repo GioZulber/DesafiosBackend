@@ -22,7 +22,7 @@ class CartsDaoMongo extends ContenedorMongo {
 		try {
 			let verify = await this.getCart(id);
 
-			if (verify.id === id) {
+			if (verify !== null && verify.id === id) {
 				return { message: 'El carrito ya existe', data: verify };
 			} else if (verify === null) {
 				let date = new Date();

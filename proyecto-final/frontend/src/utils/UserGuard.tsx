@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useUser } from '../context/userContext';
-import { ActionType } from '../context/contextProps';
 
 interface UserGuardProps {
 	children: React.ReactNode;

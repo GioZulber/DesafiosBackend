@@ -18,6 +18,8 @@ export const CartProvider = ({ children }: ProviderProps) => {
 				try {
 					const set = await createCart(user)
 						.then((res) => {
+							console.log(res?.data);
+
 							setCart(res?.data.newCart.data);
 							return res?.data;
 						})

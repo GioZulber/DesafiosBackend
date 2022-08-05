@@ -104,10 +104,18 @@ export const UserProvider = ({ children }: ProviderProps) => {
 			},
 		};
 		try {
-			const res = await axios.post(`${API}/register`, user, config);
-			localStorage.setItem('user', res.data.token);
+			const response = await axios
+				.post(`${API}/register`, user, config)
+				.then((res) => {
+					localStorage.setItem('user', res.data.token);
+					return res;
+				})
+				.catch((err) => {
+					return err.response;
+				});
+
 			await getUserInfo();
-			return res;
+			return response;
 		} catch (error) {
 			console.error(error);
 		}

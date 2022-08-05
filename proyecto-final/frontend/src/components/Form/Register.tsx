@@ -18,7 +18,7 @@ export const Register = () => {
 		age: 0,
 		avatar:
 			'' ||
-			'https://es.dreamstime.com/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-image182347582',
+			'https://us.123rf.com/450wm/thesomeday123/thesomeday1231709/thesomeday123170900021/85622928-icono-de-perfil-de-avatar-predeterminado-marcador-de-posici%C3%B3n-de-foto-gris-vectores-de-ilustraciones.jpg?ver=6',
 	};
 
 	const [data, setData] = useState<UserRegister>(initialState);
@@ -35,16 +35,18 @@ export const Register = () => {
 		try {
 			const signUp = await registerUser(data);
 
-			if (signUp.status === 200) {
+			console.log(signUp);
+
+			if (signUp?.status === 200 && !signUp?.data.error) {
 				toast.success('Bienvenido');
 				navigate('/home');
-			}
-			if (signUp.status === 401) {
-				toast.error('Error al registrarse');
 				setData(initialState);
+			} else {
+				toast.error('Error al registrarse, el email ya existe');
 			}
-
-			setData(initialState);
+			if (signUp.status === 400) {
+				toast.error('Error al registrarse');
+			}
 		} catch (error) {
 			console.log(error);
 		}

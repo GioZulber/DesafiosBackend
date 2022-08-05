@@ -4,9 +4,11 @@ import { useCart } from '../../context/cartContext';
 import { Product } from '../Products/Product';
 import { confirmCartOrder } from './cartService';
 import { toast } from 'react-toastify';
+import { useUser } from '../../context/userContext';
 
 export const Cart = () => {
-	const { cart, totalPrice, setCart } = useCart();
+	const { user } = useUser();
+	const { cart, totalPrice } = useCart();
 
 	const isLoading = cart === undefined;
 
@@ -22,7 +24,7 @@ export const Cart = () => {
 		}
 	};
 
-	return (
+	return user !== null ? (
 		<Flex p={50} w='full' direction={'column'} alignItems='center' justifyContent='center'>
 			<Heading>Cart</Heading>
 			{isLoading ? (
@@ -34,7 +36,9 @@ export const Cart = () => {
 			) : (
 				<>
 					<Heading>No hay productos en el carrito</Heading>
-					<Button> Ir a Products</Button>
+					<Button as={'a'} href={'/products'} colorScheme={'teal'} m={'5'}>
+						Ir a Products
+					</Button>
 				</>
 			)}
 			{cart?.products.length > 0 && (
@@ -45,6 +49,18 @@ export const Cart = () => {
 					</Button>
 				</Flex>
 			)}
+		</Flex>
+	) : (
+		<Flex p={50} w='full' direction={'column'} alignItems='center' justifyContent='center'>
+			<Heading>Debes iniciar sesión</Heading>
+			<Flex>
+				<Button as={'a'} href={'/register'} colorScheme={'teal'} m={'5'}>
+					Ir a Registro
+				</Button>
+				<Button as={'a'} href={'/login'} colorScheme={'teal'} m={'5'}>
+					Ir a Login
+				</Button>
+			</Flex>
 		</Flex>
 	);
 };

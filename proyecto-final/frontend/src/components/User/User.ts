@@ -14,7 +14,7 @@ export interface UserLogin {
 }
 
 export interface User {
-	id: number;
+	userId: number;
 	exp: number;
 	email: string;
 	name: string;

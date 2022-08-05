@@ -15,7 +15,13 @@ export const ListProducts = () => {
 	}, []);
 
 	return (
-		<Flex p={50} w='full' alignItems='center' justifyContent='center' color={'gray.900'}>
+		<Flex
+			p={50}
+			w='full'
+			wrap={'wrap'}
+			alignItems='center'
+			justifyContent='center'
+			color={'gray.900'}>
 			{data?.map((item, index) => (
 				<ProductCard product={item} key={index} />
 			))}

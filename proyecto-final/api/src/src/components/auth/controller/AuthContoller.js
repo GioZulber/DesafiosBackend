@@ -50,8 +50,8 @@ const register = async (req, res) => {
 
 			const token = await JWT.generateToken(userForToken);
 
-			// await sendEmailRegister(newUser.name);
-			// await sendTwilioRegister(newUser.name);
+			await sendEmailRegister(newUser.name);
+			await sendTwilioRegister(newUser.name);
 
 			return res.status(200).json({ token });
 		}
