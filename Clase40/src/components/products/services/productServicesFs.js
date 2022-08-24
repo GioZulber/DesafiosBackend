@@ -1,12 +1,11 @@
-const ContentedorArchivo = require('../../containers/ContenedorArchivo');
-const config = require('../../config');
+const ContainerFiles = require('../../../containers/ContainerFiles');
+const { config } = require('../../../config/index');
 
-class ProductDaoArchivo extends ContentedorArchivo {
+class ProductServiceFs extends ContainerFiles {
 	constructor() {
-		super(config.databases.paths.products);
+		super(config.path_to_products_files);
 	}
-
-	getProducts = async (id) => {
+	async getProducts(id) {
 		try {
 			const products = await this.getData();
 			if (id) {
@@ -16,9 +15,8 @@ class ProductDaoArchivo extends ContentedorArchivo {
 		} catch (error) {
 			console.log(`Could not get products: ${error}`);
 		}
-	};
-
-	setProduct = async (product) => {
+	}
+	async setProduct(product) {
 		try {
 			const products = await this.getData();
 
@@ -51,9 +49,8 @@ class ProductDaoArchivo extends ContentedorArchivo {
 		} catch (error) {
 			console.log(`Could not set product: ${error}`);
 		}
-	};
-
-	updateProduct = async (pid, product) => {
+	}
+	async updateProduct(pid, product) {
 		try {
 			const products = await this.getData();
 			const pUpdate = products.find((p) => Number(p.id) === Number(pid));
@@ -87,8 +84,8 @@ class ProductDaoArchivo extends ContentedorArchivo {
 		} catch (error) {
 			console.log(`Could not update product: ${error}`);
 		}
-	};
-	deleteProduct = async (pid) => {
+	}
+	async deleteProduct() {
 		try {
 			let products = await this.getData();
 			if (pid) {
@@ -101,7 +98,7 @@ class ProductDaoArchivo extends ContentedorArchivo {
 		} catch (error) {
 			console.log(`Could not delete product: ${error}`);
 		}
-	};
+	}
 }
 
-module.exports = ProductDaoArchivo;
+module.exports = new ProductServiceFs();

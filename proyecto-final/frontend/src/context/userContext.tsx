@@ -4,7 +4,7 @@ import { ContextProps, ProviderProps, ActionType } from './contextProps';
 import { UserLogin, UserRegister } from '../components/User/User';
 import axios from 'axios';
 
-const API = import.meta.env.VITE_NODE_API;
+const API: string = import.meta.env.VITE_NODE_API;
 
 const initialState = {
 	isAuthenticated: false,
@@ -40,6 +40,8 @@ export const UserProvider = ({ children }: ProviderProps) => {
 
 	const getUserInfo = async () => {
 		const token = localStorage.getItem('user');
+		console.log(token);
+
 		if (token) {
 			try {
 				const res = await axios.get(`${API}/user`, {
@@ -47,12 +49,14 @@ export const UserProvider = ({ children }: ProviderProps) => {
 						authorization: token,
 					},
 				});
+				console.log(res);
 				dispatch({
 					type: 'LOGIN',
 					payload: {
 						user: res.data,
 					},
 				});
+
 				console.log(res.data);
 			} catch (error) {
 				console.error(error);
@@ -88,12 +92,15 @@ export const UserProvider = ({ children }: ProviderProps) => {
 					return res;
 				})
 				.catch((err) => {
+					console.log(err);
+
 					return err.response;
 				});
+
 			await getUserInfo();
 			return response;
 		} catch (error) {
-			console.error(error);
+			console.log(error);
 		}
 	};
 

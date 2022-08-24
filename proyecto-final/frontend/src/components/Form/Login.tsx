@@ -31,6 +31,9 @@ export const Login = () => {
 		e.preventDefault();
 		try {
 			const singin = await loginUser(data);
+			console.log('la concha de tu madre all boys');
+
+			console.log(singin);
 
 			if (singin?.status === 200) {
 				toast.success('Bienvenido');
