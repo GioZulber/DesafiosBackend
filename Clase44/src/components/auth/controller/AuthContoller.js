@@ -29,7 +29,9 @@ class AuthContoller {
 
 			const user = await UsersServices.findUserCompare(email);
 
-			const id = user.userId ? user.userId + 1 : 1;
+			const lastId = await UsersServices.model.findOne({}, {}, { sort: { userId: -1 } });
+
+			const id = lastId ? lastId.userId + 1 : 1;
 
 			if (user) {
 				res.send(JSON.stringify({ error: 'email already exists' }));

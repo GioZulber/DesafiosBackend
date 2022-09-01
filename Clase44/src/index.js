@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-
 //Coneccion a la base de datos
 require('./config/indexConections');
 const { config } = require('./config/index');
@@ -25,7 +24,12 @@ class Server {
 		this.app.use(express.static(__dirname + '/public'));
 	}
 	middlewares() {
-		this.app.use(cors('*'));
+		this.app.use(
+			cors({
+				methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+				allowedHeaders: 'Content-Type, Authorization',
+			})
+		);
 		const advancedOptions = {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
