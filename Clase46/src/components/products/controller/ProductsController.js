@@ -1,10 +1,5 @@
 const ProductService = require('../services/productServiceMongo');
 
-/**
- *
- * @param {*} ctx
- */
-
 class ProductController {
 	async getProducts(ctx) {
 		try {
